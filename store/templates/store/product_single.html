@@ -1,0 +1,87 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="img-prod">
+              <img src="{{ product.prod_image.url }}" class="card-img-top img-fluid" alt="{{ product.prod_name }}">
+              {% if product.prod_discount > 0 %}
+              <span class="badge bg-danger position-absolute top-0 start-0 m-2">{{ product.prod_discount }}% скидка</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h1 class="card-title">{{ product.prod_name }}</h1>
+            <p class="card-text">
+<!--              <span class="price">-->
+<!--                {% if product.prod_discount > 0 %}-->
+<!--                <s>{{ product.prod_price }} ₽</s>-->
+<!--                {{ product.get_discounted_price }} ₽-->
+<!--                {% else %}-->
+<!--                {{ product.prod_price }} ₽-->
+<!--                {% endif %}-->
+<!--              </span>-->
+            </p>
+            <p class="card-text">{{ product.prod_new_price}} ₽</p>
+<!--            <div class="d-flex justify-content-start mb-3">-->
+<!--              <a href="#" class="btn btn-success mx-1">-->
+<!--                <i class="ion-ios-cart"></i> В корзину-->
+<!--              </a>-->
+<!--              <a href="#" class="btn btn-danger ms-1">-->
+<!--                <i class="ion-ios-heart"></i> В избранное-->
+<!--              </a>-->
+<!--            </div>-->
+            <p class="card-text"><strong>Категория:</strong> {{ product.category }}</p>
+            <p class="card-text"><strong>Наличие:</strong> {{ product.availability }}</p>
+            <p class="card-text"><strong>Артикул:</strong> {{ product.id }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Похожие товары start -->
+    <H1 class="text-center">Похожие товары</H1>
+    <div class="container my-5">
+      <div class="row">
+        {% for similar_product in similar_products %}
+        <div class="col-md-3 mb-4">
+          <div class="card text-center">
+            <a href="{% url 'product_single' similar_product.id %}" class="img-prod">
+              <img src="{{ similar_product.prod_image.url }}" class="card-img-top img-fluid" alt="{{ similar_product.prod_name }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'product_single' similar_product.id %}">{{ similar_product.prod_name }}</a></h5>
+              <p class="card-text">
+                <span class="price">
+                  {% if similar_product.prod_discount > 0 %}
+                  <s>{{ similar_product.prod_price }} ₽</s>
+                  {{ similar_product.get_discounted_price }} ₽
+                  {% else %}
+                  {{ similar_product.prod_price }} ₽
+                  {% endif %}
+                </span>
+              </p>
+              <div class="d-flex justify-content-center">
+                <a href="{% url 'product_single' similar_product.id %}" class="btn btn-primary me-1">
+                  <i class="ion-ios-menu"></i>
+                </a>
+                <a href="#" class="btn btn-success mx-1">
+                  <i class="ion-ios-cart"></i>
+                </a>
+                <a href="#" class="btn btn-danger ms-1">
+                  <i class="ion-ios-heart"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- Похожие товары End-->
+{% endblock %}

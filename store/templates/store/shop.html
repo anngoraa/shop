@@ -1,0 +1,66 @@
+<!--Начало документа-->
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block content %}
+  <!--Навигация Start-->
+<!--Контент Start-->
+<H1 class="text-center">Каталог товаров</H1>
+
+<!--   <div class="container my-5">-->
+<!--           &lt;!&ndash;Ссылки на категории Start&ndash;&gt;-->
+<!--      <div class="row mb-4">-->
+<!--        <div class="col-12 d-flex justify-content-center">-->
+<!--          <a href="#" class="btn btn-outline-success mx-2 active">Все товары</a>-->
+<!--          <a href="#" class="btn btn-outline-success mx-2">Овощи</a>-->
+<!--          <a href="#" class="btn btn-outline-success mx-2">Фрукты</a>-->
+<!--          <a href="#" class="btn btn-outline-success mx-2">Соки</a>-->
+<!--          <a href="#" class="btn btn-outline-success mx-2">Сухофрукты</a>-->
+<!--        </div>-->
+<!--      </div>-->
+      <!--Ссылки на категории End-->
+
+
+      <div class="row">
+        <!-- Начало первого ряда -->
+
+
+        <!--  Карточка одного товара start -->
+        {% for product in page_obj %}
+        <div class="col-md-3 mb-4">
+          <div class="card text-center">
+            <a href="#" class="img-prod">
+              <img src="{{ product.prod_image.url }}" class="card-img-top img-fluid" alt="Product 1">
+            </a>
+            <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'product_single' product.id %}">{{product.prod_name}}</a> </h5>
+                  <p class="card-text"><span class="price"><s>{{ product.prod_old_price }}  ₽</s>{{product.prod_new_price}}  ₽</span></p>
+                    Скидка:{{ product.discount|floatformat:0 }}%
+              <div class="d-flex justify-content-center">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        <!--  Карточка одного товара end -->
+
+
+
+
+        <!-- Конец первого ряда -->
+
+        <!-- Начало второго ряда -->
+
+
+
+        <!-- Конец второго ряда -->
+      </div>
+    </div>
+<!--Контент End-->
+
+
+<!--Подвал Start -->
+{% endblock %}
+<!-- Конец документа -->
